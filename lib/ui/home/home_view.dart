@@ -8,9 +8,11 @@ import 'package:puzzle/ui/components/loading_overlay.dart';
 import 'package:puzzle/ui/home/widgets/puzzle.dart';
 import 'package:puzzle/ui/home/widgets/setup.dart';
 import 'package:rive/rive.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:stacked/stacked.dart';
 import 'package:universal_html/html.dart' hide Text;
 import 'package:image/image.dart' as image;
+import 'dart:math' as math;
 
 import 'home_view_model.dart';
 
@@ -44,6 +46,29 @@ class HomeView extends StatelessWidget {
                       fit: BoxFit.cover,
                       animations: ['Moon', 'Twinkle'],
                     ),
+                    LoopAnimation<double>(
+                      duration: const Duration(seconds: 10),
+                      tween: Tween<double>(begin: 0, end:MediaQuery.of(context).size.width + 200),
+                      builder: (context, child, value) {
+                        return Positioned(
+                          bottom: -100,
+                          right: -200 + value,
+                          child: child!,
+                        );
+                      },
+                      child: SizedBox(
+                        height: puzzleService.sideLength * 2,
+                        width: puzzleService.sideLength * 2,
+                        child: RiveAnimation.asset(
+                          'assets/animations/cow.riv',
+                          fit: BoxFit.cover,
+                          stateMachines: const ['Cow'],
+                          onInit: (artboard) {
+                            model.setCowMachine(artboard);
+                          },
+                        ),
+                      ),
+                    ),
                     SizeChangedLayoutNotifier(
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 800),
@@ -67,7 +92,7 @@ class HomeView extends StatelessWidget {
                                 ),
                               (puzzleService.imageBytes == null)
                                   ? Center(
-                                    child: SizedBox(
+                                      child: SizedBox(
                                         width: 300,
                                         child: FloatingActionButton.extended(
                                           onPressed: () async {
@@ -80,7 +105,7 @@ class HomeView extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                  )
+                                    )
                                   : puzzleService.puzzleStarted
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -169,7 +194,7 @@ class HomeView extends StatelessWidget {
                                           ),
                                         )
                                       : Center(
-                                        child: SizedBox(
+                                          child: SizedBox(
                                             width: 300,
                                             child: FloatingActionButton.extended(
                                               heroTag: 'start',
@@ -216,7 +241,7 @@ class HomeView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                      ),
+                                        ),
                               const SizedBox(height: 60)
                             ],
                           ),
@@ -299,7 +324,7 @@ List<Uint8List>? getPieces(dynamic dataMap) {
         sideLength.toInt(),
       );
 
-      computedPieces.add(Uint8List.fromList(image.encodeJpg(cropped, quality: 50)));
+      computedPieces.add(Uint8List.fromList(image.encodeJpg(cropped)));
 
       if ((x + 1) % sideCount == 0) {
         row++;

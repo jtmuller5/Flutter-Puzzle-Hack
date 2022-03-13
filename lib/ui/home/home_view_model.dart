@@ -15,11 +15,13 @@ class HomeViewModel extends ReactiveViewModel {
   SimpleAnimation cloudsAnimation = SimpleAnimation('Clouds');
 
   StateMachineController? ufoController;
+  StateMachineController? cowController;
 
   SMITrigger? spinRight;
   SMITrigger? spinLeft;
   SMITrigger? pulse;
   SMITrigger? attract;
+  SMITrigger? jump;
 
   bool swapMode = false;
   PuzzlePiece? swapPiece1;
@@ -99,12 +101,22 @@ class HomeViewModel extends ReactiveViewModel {
 
       puzzleService.incrementSwaps();
       pulse?.fire();
+      jump?.fire();
 
       notifyListeners();
 
       swapPiece1 = null;
       swapPiece2 = null;
 
+      notifyListeners();
+    }
+  }
+
+  void setCowMachine(Artboard artboard) {
+    if (cowController == null) {
+      cowController = StateMachineController.fromArtboard(artboard, 'Cow');
+      artboard.addController(cowController!);
+      jump = cowController!.findInput<bool>('Jump') as SMITrigger;
       notifyListeners();
     }
   }
@@ -362,6 +374,7 @@ class HomeViewModel extends ReactiveViewModel {
   void shuffle() {
     startingPositions.shuffle();
     spinRight?.fire();
+    jump?.fire();
 
     for (int x = 0; x < (sideCount * sideCount) - 1; x++) {
       pieces[x].pos = startingPositions[x];

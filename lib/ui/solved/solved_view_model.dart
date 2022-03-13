@@ -3,22 +3,28 @@ import 'package:stacked/stacked.dart';
 
 class SolvedViewModel extends BaseViewModel {
   StateMachineController? ufoController;
+  StateMachineController? cowController;
 
   SMITrigger? spinRight;
   SMITrigger? spinLeft;
   SMITrigger? pulse;
   SMITrigger? attract;
+  SMITrigger? jump;
 
-  void initialize() {}
+
+  void setCowMachine(Artboard artboard) {
+    if (cowController == null) {
+      cowController = StateMachineController.fromArtboard(artboard, 'cow');
+      artboard.addController(cowController!);
+      jump = cowController!.findInput<bool>('Jump') as SMITrigger;
+      notifyListeners();
+    }
+  }
 
   void setStateMachine(Artboard artboard) {
     if (ufoController == null) {
-      ufoController = StateMachineController.fromArtboard(artboard, 'optimized');
+      ufoController = StateMachineController.fromArtboard(artboard, 'abduct');
       artboard.addController(ufoController!);
-      spinRight = ufoController!.findInput<bool>('Right') as SMITrigger;
-      spinLeft = ufoController!.findInput<bool>('Left') as SMITrigger;
-      pulse = ufoController!.findInput<bool>('Pulse') as SMITrigger;
-      attract = ufoController!.findInput<bool>('Attract') as SMITrigger;
       notifyListeners();
     }
   }
