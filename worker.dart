@@ -2,9 +2,10 @@
 library sample;
 
 import 'dart:typed_data';
-import 'package:universal_html/html.dart';
 import 'package:js/js.dart';
+import 'package:universal_html/html.dart';
 import 'package:image/image.dart' as image;
+
 
 @JS('self')
 external DedicatedWorkerGlobalScope get self;

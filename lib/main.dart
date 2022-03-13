@@ -44,7 +44,7 @@ class App extends StatelessWidget {
                 theme: lightTheme,
                 routeInformationParser: goRouter.routeInformationParser,
                 routerDelegate: goRouter.routerDelegate,
-                title: 'Flutter Puzzle Hack',
+                title: 'The Abduction',
               ),),
           );
         },
