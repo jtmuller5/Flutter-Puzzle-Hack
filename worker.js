@@ -6349,57 +6349,17 @@
     },
     main() {
       var t1 = type$.nullable_EventTarget._as(self.self),
-        t2 = type$.nullable_void_Function_MessageEvent._as(new A.main_closure());
+        t2 = type$.nullable_void_Function_MessageEvent._as(new A.main_closure(new A.main_getPieces(new A.main_roundToVal())));
       type$.nullable_void_Function._as(null);
       A._EventStreamSubscription$(t1, "message", t2, false, type$.MessageEvent);
     },
-    getPieces(imageData, sideCount, sideLength) {
-      var puzzleSide, resizedImage, midX, midY, fitSide, fittedImage, t1, t2, t3, t4, t5, row, col, x, t6, t7, t8, cropped, t9, t10, t11, t12, t13, t14, t15, t16, _null = null,
-        fullImage = A.decodeImage(type$.List_int._as(imageData)),
-        computedPieces = A._setArrayType([], type$.JSArray_Uint8List);
-      if (fullImage != null) {
-        puzzleSide = sideLength * sideLength;
-        resizedImage = fullImage.width < puzzleSide || fullImage.height < puzzleSide ? A.copyResizeCropSquare(fullImage, B.JSNumber_methods.toInt$0(sideLength * sideCount)) : _null;
-        if (resizedImage == null)
-          resizedImage = fullImage;
-        midX = resizedImage.width / 2;
-        midY = resizedImage.height / 2;
-        fitSide = sideCount / 2 * sideLength;
-        fittedImage = A.copyCrop(resizedImage, B.JSInt_methods.toInt$0(B.JSNumber_methods.round$0((midX - fitSide) / 2) * 2), B.JSInt_methods.toInt$0(B.JSNumber_methods.round$0((midY - fitSide) / 2) * 2), B.JSInt_methods.toInt$0(B.JSNumber_methods.round$0((midX + fitSide) / 2) * 2), B.JSInt_methods.toInt$0(B.JSNumber_methods.round$0((midY + fitSide) / 2) * 2));
-        for (t1 = sideCount * sideCount - 1, t2 = sideCount - 1, t3 = type$.List_nullable_List_int, t4 = type$.nullable_List_int, t5 = type$.nullable_int, row = 0, col = 0, x = 0; x < t1;) {
-          t6 = B.JSNumber_methods.toInt$0(col * sideLength);
-          t7 = B.JSNumber_methods.toInt$0(row * sideLength);
-          t8 = B.JSNumber_methods.toInt$0(sideLength);
-          cropped = A.copyCrop(fittedImage, t6, t7, t8, t8);
-          t6 = new Uint8Array(64);
-          t7 = new Uint8Array(64);
-          t8 = new Float32Array(64);
-          t9 = new Float32Array(64);
-          t10 = A.List_List$filled(65535, _null, false, t4);
-          t11 = A.List_List$filled(65535, _null, false, t5);
-          t12 = A.List_List$filled(64, _null, false, t5);
-          t13 = A.List_List$filled(64, _null, false, t5);
-          t14 = new Float32Array(64);
-          t15 = new Float32Array(64);
-          t16 = new Float32Array(64);
-          t6 = new A.JpegEncoder(t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, new Int32Array(2048));
-          t6.set$YDC_HT(t6._computeHuffmanTbl$2(B.List_F1L, B.List_UiL));
-          t6.set$UVDC_HT(t6._computeHuffmanTbl$2(B.List_F1L0, B.List_UiL));
-          t6.set$__JpegEncoder_YAC_HT(t3._as(t6._computeHuffmanTbl$2(B.List_F1L1, B.List_G61)));
-          t6.set$__JpegEncoder_UVAC_HT(t3._as(t6._computeHuffmanTbl$2(B.List_F1L2, B.List_AKW)));
-          t6._initCategoryNumber$0();
-          t6._initRGBYUVTable$0();
-          t6.setQuality$1(50);
-          B.JSArray_methods.add$1(computedPieces, new Uint8Array(A._ensureNativeList(t6.encodeImage$1(cropped))));
-          ++x;
-          if (B.JSInt_methods.$mod(x, sideCount) === 0)
-            ++row;
-          col = col === t2 ? 0 : col + 1;
-        }
-        return computedPieces;
-      }
+    main_roundToVal: function main_roundToVal() {
     },
-    main_closure: function main_closure() {
+    main_getPieces: function main_getPieces(t0) {
+      this.roundToVal = t0;
+    },
+    main_closure: function main_closure(t0) {
+      this.getPieces = t0;
     },
     Uint64List_Uint64List($length) {
       throw A.wrapException(A.UnsupportedError$("Uint64List not supported on the web."));
@@ -7845,6 +7805,15 @@
         return receiver;
       return J.getNativeInterceptor(receiver);
     },
+    getInterceptor$n(receiver) {
+      if (typeof receiver == "number")
+        return J.JSNumber.prototype;
+      if (receiver == null)
+        return receiver;
+      if (!(receiver instanceof A.Object))
+        return J.UnknownJavaScriptObject.prototype;
+      return receiver;
+    },
     getInterceptor$x(receiver) {
       if (receiver == null)
         return receiver;
@@ -7903,6 +7872,9 @@
     },
     sublist$2$ax(receiver, a0, a1) {
       return J.getInterceptor$ax(receiver).sublist$2(receiver, a0, a1);
+    },
+    toInt$0$n(receiver) {
+      return J.getInterceptor$n(receiver).toInt$0(receiver);
     },
     toString$0$(receiver) {
       return J.getInterceptor$(receiver).toString$0(receiver);
@@ -8646,7 +8618,7 @@
     call$1(o) {
       return this.T._is(o);
     },
-    $signature: 20
+    $signature: 23
   };
   A.TypeErrorDecoder.prototype = {
     matchTypeError$1(message) {
@@ -8997,19 +8969,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 17
+    $signature: 12
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 21
+    $signature: 34
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 25
+    $signature: 33
   };
   A._Cell.prototype = {
     _readLocal$0() {
@@ -9221,7 +9193,7 @@
       t1.storedCallback = null;
       f.call$0();
     },
-    $signature: 12
+    $signature: 11
   };
   A._AsyncRun__initializeScheduleImmediate_closure.prototype = {
     call$1(callback) {
@@ -9231,19 +9203,19 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 24
+    $signature: 31
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
       this.callback.call$0();
     },
-    $signature: 16
+    $signature: 17
   };
   A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback.prototype = {
     call$0() {
       this.callback.call$0();
     },
-    $signature: 16
+    $signature: 17
   };
   A._TimerImpl.prototype = {
     _TimerImpl$2(milliseconds, callback) {
@@ -9486,13 +9458,13 @@
         t1._completeError$2(error, stackTrace);
       }
     },
-    $signature: 12
+    $signature: 11
   };
   A._Future__chainForeignFuture_closure0.prototype = {
     call$2(error, stackTrace) {
       this.$this._completeError$2(type$.Object._as(error), type$.StackTrace._as(stackTrace));
     },
-    $signature: 32
+    $signature: 30
   };
   A._Future__chainForeignFuture_closure1.prototype = {
     call$0() {
@@ -9557,7 +9529,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 18
+    $signature: 26
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -9779,13 +9751,13 @@
     call$1(v) {
       return this.K._is(v);
     },
-    $signature: 19
+    $signature: 24
   };
   A.LinkedHashMap_LinkedHashMap$from_closure.prototype = {
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 13
+    $signature: 8
   };
   A.ListBase.prototype = {$isIterable: 1, $isList: 1};
   A.ListMixin.prototype = {
@@ -9863,7 +9835,7 @@
       t1._contents = t2 + ": ";
       t1._contents += A.S(v);
     },
-    $signature: 3
+    $signature: 7
   };
   A.MapMixin.prototype = {
     forEach$1(_, action) {
@@ -9899,7 +9871,7 @@
       }
       return null;
     },
-    $signature: 9
+    $signature: 13
   };
   A.Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -9911,7 +9883,7 @@
       }
       return null;
     },
-    $signature: 9
+    $signature: 13
   };
   A.Converter.prototype = {};
   A.JsonUnsupportedObjectError.prototype = {
@@ -10139,7 +10111,7 @@
       B.JSArray_methods.$indexSet(t1, t2.i++, key);
       B.JSArray_methods.$indexSet(t1, t2.i++, value);
     },
-    $signature: 3
+    $signature: 7
   };
   A._JsonPrettyPrintMixin.prototype = {
     writeList$1(list) {
@@ -10207,7 +10179,7 @@
       B.JSArray_methods.$indexSet(t1, t2.i++, key);
       B.JSArray_methods.$indexSet(t1, t2.i++, value);
     },
-    $signature: 3
+    $signature: 7
   };
   A._JsonStringStringifier.prototype = {
     get$_partialResult() {
@@ -10637,7 +10609,7 @@
     call$1(e) {
       return this.onData.call$1(type$.Event._as(e));
     },
-    $signature: 22
+    $signature: 19
   };
   A._StructuredClone.prototype = {
     findSlot$1(value) {
@@ -10724,13 +10696,13 @@
     call$2(key, value) {
       this._box_0.copy[key] = this.$this.walk$1(value);
     },
-    $signature: 13
+    $signature: 8
   };
   A._StructuredClone_walk_closure0.prototype = {
     call$2(key, value) {
       this._box_0.copy[key] = this.$this.walk$1(value);
     },
-    $signature: 23
+    $signature: 18
   };
   A._AcceptStructuredClone.prototype = {
     findSlot$1(value) {
@@ -10816,7 +10788,7 @@
       J.$indexSet$ax(t1, key, t2);
       return t2;
     },
-    $signature: 33
+    $signature: 35
   };
   A._StructuredCloneDart2Js.prototype = {
     forEachObjectKey$2(object, action) {
@@ -10854,7 +10826,7 @@
       t1._asyncComplete$1(t2._eval$1("1/")._as(r));
       return null;
     },
-    $signature: 10
+    $signature: 16
   };
   A.promiseToFuture_closure0.prototype = {
     call$1(e) {
@@ -10862,7 +10834,7 @@
         return this.completer.completeError$1(new A.NullRejectionException(e === undefined));
       return this.completer.completeError$1(e);
     },
-    $signature: 10
+    $signature: 16
   };
   A.ArchiveException.prototype = {};
   A.InputStreamBase.prototype = {};
@@ -11389,7 +11361,7 @@
       t1 = this.colorBytes === 3 ? 100 : null;
       return this.$this._readRgba$2$aDefault(this.p, t1);
     },
-    $signature: 11
+    $signature: 15
   };
   A.BmpDecoder.prototype = {
     startDecode$1(bytes) {
@@ -11435,7 +11407,7 @@
     call$1(color) {
       return this.image.setPixel$3(this._box_0.x++, this.line, color);
     },
-    $signature: 4
+    $signature: 3
   };
   A.DibDecoder.prototype = {};
   A.DecodeInfo.prototype = {};
@@ -12204,7 +12176,7 @@
       }
       return result;
     },
-    $signature: 26
+    $signature: 20
   };
   A.InternalExrPart.prototype = {
     readOffsets$1(input) {
@@ -13404,7 +13376,7 @@
       t1.readUint16$0();
       return new A.IcoInfoImage(t1.readUint32$0(), t1.readUint32$0());
     },
-    $signature: 30
+    $signature: 21
   };
   A.IcoInfoImage.prototype = {};
   A.IcoBmpInfo.prototype = {
@@ -14105,7 +14077,7 @@
       }
       return t2;
     },
-    $signature: 27
+    $signature: 22
   };
   A._JpegHuffman.prototype = {};
   A.JpegFrame.prototype = {
@@ -15909,7 +15881,7 @@
     call$1(i) {
       return i;
     },
-    $signature: 11
+    $signature: 15
   };
   A.PsdBevelEffect.prototype = {
     set$highlightColor(highlightColor) {
@@ -20598,7 +20570,7 @@
     call$2(u, v) {
       return (u | v << 16) >>> 0;
     },
-    $signature: 28
+    $signature: 25
   };
   A.VP8BitReader.prototype = {
     getValue$1(bits) {
@@ -22898,7 +22870,7 @@
     call$2(x, f) {
       return Math.log(x * f + 1) / f;
     },
-    $signature: 15
+    $signature: 9
   };
   A.hdrToImage__gamma.prototype = {
     call$2(h, m) {
@@ -22912,7 +22884,7 @@
       }
       return Math.pow(x, 0.4545) * 84.66;
     },
-    $signature: 15
+    $signature: 9
   };
   A.ICCProfileData.prototype = {};
   A.Format.prototype = {
@@ -23398,11 +23370,69 @@
       return this.length;
     }
   };
+  A.main_roundToVal.prototype = {
+    call$2(input, rounder) {
+      return B.JSNumber_methods.round$0(input / rounder) * rounder;
+    },
+    $signature: 27
+  };
+  A.main_getPieces.prototype = {
+    call$3(imageData, sideCount, sideLength) {
+      var puzzleSide, resizedImage, midX, midY, fitSide, fittedImage, t2, t3, t4, t5, row, col, x, t6, t7, t8, cropped, t9, t10, t11, t12, t13, t14, t15, t16, _null = null,
+        fullImage = A.decodeImage(type$.List_int._as(imageData)),
+        t1 = type$.JSArray_Uint8List,
+        computedPieces = A._setArrayType([], t1);
+      if (fullImage != null) {
+        puzzleSide = sideLength * sideLength;
+        resizedImage = fullImage.width < puzzleSide || fullImage.height < puzzleSide ? A.copyResizeCropSquare(fullImage, B.JSNumber_methods.toInt$0(sideLength * sideCount)) : _null;
+        if (resizedImage == null)
+          resizedImage = fullImage;
+        midX = resizedImage.width / 2;
+        midY = resizedImage.height / 2;
+        fitSide = sideCount / 2 * sideLength;
+        t1 = this.roundToVal;
+        fittedImage = A.copyCrop(resizedImage, J.toInt$0$n(t1.call$2(midX - fitSide, 2)), J.toInt$0$n(t1.call$2(midY - fitSide, 2)), J.toInt$0$n(t1.call$2(midX + fitSide, 2)), J.toInt$0$n(t1.call$2(midY + fitSide, 2)));
+        for (t1 = sideCount * sideCount - 1, t2 = sideCount - 1, t3 = type$.List_nullable_List_int, t4 = type$.nullable_List_int, t5 = type$.nullable_int, row = 0, col = 0, x = 0; x < t1;) {
+          t6 = B.JSNumber_methods.toInt$0(col * sideLength);
+          t7 = B.JSNumber_methods.toInt$0(row * sideLength);
+          t8 = B.JSNumber_methods.toInt$0(sideLength);
+          cropped = A.copyCrop(fittedImage, t6, t7, t8, t8);
+          t6 = new Uint8Array(64);
+          t7 = new Uint8Array(64);
+          t8 = new Float32Array(64);
+          t9 = new Float32Array(64);
+          t10 = A.List_List$filled(65535, _null, false, t4);
+          t11 = A.List_List$filled(65535, _null, false, t5);
+          t12 = A.List_List$filled(64, _null, false, t5);
+          t13 = A.List_List$filled(64, _null, false, t5);
+          t14 = new Float32Array(64);
+          t15 = new Float32Array(64);
+          t16 = new Float32Array(64);
+          t6 = new A.JpegEncoder(t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, new Int32Array(2048));
+          t6.set$YDC_HT(t6._computeHuffmanTbl$2(B.List_F1L, B.List_UiL));
+          t6.set$UVDC_HT(t6._computeHuffmanTbl$2(B.List_F1L0, B.List_UiL));
+          t6.set$__JpegEncoder_YAC_HT(t3._as(t6._computeHuffmanTbl$2(B.List_F1L1, B.List_G61)));
+          t6.set$__JpegEncoder_UVAC_HT(t3._as(t6._computeHuffmanTbl$2(B.List_F1L2, B.List_AKW)));
+          t6._initCategoryNumber$0();
+          t6._initRGBYUVTable$0();
+          t6.setQuality$1(50);
+          B.JSArray_methods.add$1(computedPieces, new Uint8Array(A._ensureNativeList(t6.encodeImage$1(cropped))));
+          ++x;
+          if (B.JSInt_methods.$mod(x, sideCount) === 0)
+            ++row;
+          col = col === t2 ? 0 : col + 1;
+        }
+        return computedPieces;
+      }
+      return A._setArrayType([], t1);
+    },
+    $signature: 28
+  };
   A.main_closure.prototype = {
     call$1(e) {
       var pieces;
       type$.MessageEvent._as(e);
-      pieces = A.getPieces(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 0), A._asInt(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 1)), A._asDouble(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 2)));
+      pieces = this.getPieces.call$3(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 0), A._asInt(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 1)), A._asDouble(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), 2)));
       J.postMessage$2$x(self.self, pieces, null);
     },
     $signature: 29
@@ -23424,20 +23454,20 @@
       _instance_2_u = hunkHelpers._instance_2u,
       _instance_1_u = hunkHelpers._instance_1u,
       _static = hunkHelpers.installStaticTearOff;
-    _static_1(A, "_js_helper_GeneralConstantMap__constantMapHashCode$closure", "GeneralConstantMap__constantMapHashCode", 8);
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 7);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 7);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 7);
+    _static_1(A, "_js_helper_GeneralConstantMap__constantMapHashCode$closure", "GeneralConstantMap__constantMapHashCode", 14);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 4);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 4);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 4);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 2);
-    _static_2(A, "collection___defaultEquals$closure", "_defaultEquals", 31);
-    _static_1(A, "collection___defaultHashCode$closure", "_defaultHashCode", 8);
-    _static_1(A, "convert___defaultToEncodable$closure", "_defaultToEncodable", 17);
+    _static_2(A, "collection___defaultEquals$closure", "_defaultEquals", 32);
+    _static_1(A, "collection___defaultHashCode$closure", "_defaultHashCode", 14);
+    _static_1(A, "convert___defaultToEncodable$closure", "_defaultToEncodable", 12);
     var _;
-    _instance_2_u(_ = A.JpegScan.prototype, "get$_decodeBaseline", "_decodeBaseline$2", 6);
-    _instance_2_u(_, "get$_decodeDCFirst", "_decodeDCFirst$2", 6);
-    _instance_2_u(_, "get$_decodeDCSuccessive", "_decodeDCSuccessive$2", 14);
-    _instance_2_u(_, "get$_decodeACFirst", "_decodeACFirst$2", 6);
-    _instance_2_u(_, "get$_decodeACSuccessive", "_decodeACSuccessive$2", 14);
+    _instance_2_u(_ = A.JpegScan.prototype, "get$_decodeBaseline", "_decodeBaseline$2", 5);
+    _instance_2_u(_, "get$_decodeDCFirst", "_decodeDCFirst$2", 5);
+    _instance_2_u(_, "get$_decodeDCSuccessive", "_decodeDCSuccessive$2", 10);
+    _instance_2_u(_, "get$_decodeACFirst", "_decodeACFirst$2", 5);
+    _instance_2_u(_, "get$_decodeACSuccessive", "_decodeACSuccessive$2", 10);
     _static_1(A, "vp8_filter_VP8Filter_VE4$closure", "VP8Filter_VE4", 0);
     _static_1(A, "vp8_filter_VP8Filter_HE4$closure", "VP8Filter_HE4", 0);
     _static_1(A, "vp8_filter_VP8Filter_DC4$closure", "VP8Filter_DC4", 0);
@@ -23462,8 +23492,8 @@
     _static_1(A, "vp8_filter_VP8Filter_DC8uvNoLeft$closure", "VP8Filter_DC8uvNoLeft", 0);
     _static_1(A, "vp8_filter_VP8Filter_DC8uvNoTop$closure", "VP8Filter_DC8uvNoTop", 0);
     _static_1(A, "vp8_filter_VP8Filter_DC8uvNoTopLeft$closure", "VP8Filter_DC8uvNoTopLeft", 0);
-    _instance_1_u(A.VP8L.prototype, "get$_processRows", "_processRows$1", 4);
-    _instance_1_u(A.InternalVP8L.prototype, "get$extractAlphaRows", "extractAlphaRows$1", 4);
+    _instance_1_u(A.VP8L.prototype, "get$_processRows", "_processRows$1", 3);
+    _instance_1_u(A.InternalVP8L.prototype, "get$extractAlphaRows", "extractAlphaRows$1", 3);
     _static(A, "vp8l_transform_VP8LTransform__predictor0$closure", 3, null, ["call$3"], ["VP8LTransform__predictor0"], 1, 0);
     _static(A, "vp8l_transform_VP8LTransform__predictor1$closure", 3, null, ["call$3"], ["VP8LTransform__predictor1"], 1, 0);
     _static(A, "vp8l_transform_VP8LTransform__predictor2$closure", 3, null, ["call$3"], ["VP8LTransform__predictor2"], 1, 0);
@@ -23478,9 +23508,9 @@
     _static(A, "vp8l_transform_VP8LTransform__predictor11$closure", 3, null, ["call$3"], ["VP8LTransform__predictor11"], 1, 0);
     _static(A, "vp8l_transform_VP8LTransform__predictor12$closure", 3, null, ["call$3"], ["VP8LTransform__predictor12"], 1, 0);
     _static(A, "vp8l_transform_VP8LTransform__predictor13$closure", 3, null, ["call$3"], ["VP8LTransform__predictor13"], 1, 0);
-    _static(A, "webp_filters_WebPFilters_horizontalUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_horizontalUnfilter"], 5, 0);
-    _static(A, "webp_filters_WebPFilters_verticalUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_verticalUnfilter"], 5, 0);
-    _static(A, "webp_filters_WebPFilters_gradientUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_gradientUnfilter"], 5, 0);
+    _static(A, "webp_filters_WebPFilters_horizontalUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_horizontalUnfilter"], 6, 0);
+    _static(A, "webp_filters_WebPFilters_verticalUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_verticalUnfilter"], 6, 0);
+    _static(A, "webp_filters_WebPFilters_gradientUnfilter$closure", 6, null, ["call$6"], ["WebPFilters_gradientUnfilter"], 6, 0);
   })();
   (function inheritance() {
     var _mixin = hunkHelpers.mixin,
@@ -23503,13 +23533,13 @@
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
     _inherit(A.MappedIterator, A.Iterator);
     _inherit(A.GeneralConstantMap, A.ConstantMap);
-    _inheritMany(A.Closure, [A.GeneralConstantMap__typeTest_closure, A.Closure0Args, A.Closure2Args, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._RootZone_bindUnaryCallbackGuarded_closure, A._LinkedCustomHashMap_closure, A._EventStreamSubscription_closure, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.BmpInfo_readPalette_closure, A.BmpDecoder_decodeFrame_closure, A.ExrPart_closure, A.IcoInfo__read_closure, A.JpegData__readSOS_closure, A.PngDecoder_decodeFrame_closure, A.main_closure]);
+    _inheritMany(A.Closure, [A.GeneralConstantMap__typeTest_closure, A.Closure0Args, A.Closure2Args, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._RootZone_bindUnaryCallbackGuarded_closure, A._LinkedCustomHashMap_closure, A._EventStreamSubscription_closure, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.BmpInfo_readPalette_closure, A.BmpDecoder_decodeFrame_closure, A.ExrPart_closure, A.IcoInfo__read_closure, A.JpegData__readSOS_closure, A.PngDecoder_decodeFrame_closure, A.main_getPieces, A.main_closure]);
     _inherit(A.NullError, A.TypeError);
     _inheritMany(A.TearOffClosure, [A.StaticClosure, A.BoundClosure]);
     _inherit(A._AssertionError, A.AssertionError);
     _inherit(A.MapBase, A.MapMixin);
     _inherit(A.JsLinkedHashMap, A.MapBase);
-    _inheritMany(A.Closure2Args, [A.initHooks_closure0, A._Future__chainForeignFuture_closure0, A.LinkedHashMap_LinkedHashMap$from_closure, A.MapBase_mapToString_closure, A._JsonStringifier_writeMap_closure, A._JsonPrettyPrintMixin_writeMap_closure, A._StructuredClone_walk_closure, A._StructuredClone_walk_closure0, A._AcceptStructuredClone_walk_closure, A.VP8__upsample_LOAD_UV, A.hdrToImage__knee, A.hdrToImage__gamma]);
+    _inheritMany(A.Closure2Args, [A.initHooks_closure0, A._Future__chainForeignFuture_closure0, A.LinkedHashMap_LinkedHashMap$from_closure, A.MapBase_mapToString_closure, A._JsonStringifier_writeMap_closure, A._JsonPrettyPrintMixin_writeMap_closure, A._StructuredClone_walk_closure, A._StructuredClone_walk_closure0, A._AcceptStructuredClone_walk_closure, A.VP8__upsample_LOAD_UV, A.hdrToImage__knee, A.hdrToImage__gamma, A.main_roundToVal]);
     _inherit(A.NativeTypedArray, A.NativeTypedData);
     _inheritMany(A.NativeTypedArray, [A._NativeTypedArrayOfDouble_NativeTypedArray_ListMixin, A._NativeTypedArrayOfInt_NativeTypedArray_ListMixin]);
     _inherit(A._NativeTypedArrayOfDouble_NativeTypedArray_ListMixin_FixedLengthListMixin, A._NativeTypedArrayOfDouble_NativeTypedArray_ListMixin);
@@ -23571,7 +23601,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~(InputBuffer)", "int(Uint32List,int,int)", "~()", "~(Object?,Object?)", "~(int)", "~(int,int,int,int,int,Uint8List)", "~(JpegComponent,List<@>)", "~(~())", "int(Object?)", "@()", "~(@)", "int(int)", "Null(@)", "~(@,@)", "~(JpegComponent,List<int>)", "num(num,num)", "Null()", "@(@)", "_Future<@>(@)", "bool(@)", "bool(Object?)", "@(@,String)", "~(Event)", "Null(@,@)", "Null(~())", "@(String)", "Uint32List(int)", "JpegComponent(int)", "int(int,int)", "~(MessageEvent)", "IcoInfoImage(int)", "bool(Object?,Object?)", "Null(Object,StackTrace)", "@(@,@)"],
+    types: ["~(InputBuffer)", "int(Uint32List,int,int)", "~()", "~(int)", "~(~())", "~(JpegComponent,List<@>)", "~(int,int,int,int,int,Uint8List)", "~(Object?,Object?)", "~(@,@)", "num(num,num)", "~(JpegComponent,List<int>)", "Null(@)", "@(@)", "@()", "int(Object?)", "int(int)", "~(@)", "Null()", "Null(@,@)", "~(Event)", "Uint32List(int)", "IcoInfoImage(int)", "JpegComponent(int)", "bool(Object?)", "bool(@)", "int(int,int)", "_Future<@>(@)", "double(double,double)", "List<Uint8List>(@,int,double)", "~(MessageEvent)", "Null(Object,StackTrace)", "Null(~())", "bool(Object?,Object?)", "@(String)", "@(@,String)", "@(@,@)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti")

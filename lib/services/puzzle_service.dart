@@ -113,7 +113,14 @@ class PuzzleService with ReactiveServiceMixin {
     for (int x = 0; x < (sideCount * sideCount) - 1; x++) {
       pieces.add(
         PuzzlePiece(
-            id: x, pos: startingPositions[x], target: targets[x], empty: false, color: Colors.purple, active: false, image: puzzleService.images[x]),
+          id: x,
+          pos: startingPositions[x],
+          target: targets[x],
+          empty: false,
+          color: Colors.purple,
+          active: false,
+          image: puzzleService.images[x],
+        ),
       );
     }
   }

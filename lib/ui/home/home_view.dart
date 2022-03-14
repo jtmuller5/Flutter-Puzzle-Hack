@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
                     ),
                     LoopAnimation<double>(
                       duration: const Duration(seconds: 10),
-                      tween: Tween<double>(begin: 0, end:MediaQuery.of(context).size.width + 200),
+                      tween: Tween<double>(begin: 0, end: MediaQuery.of(context).size.width + 200),
                       builder: (context, child, value) {
                         return Positioned(
                           bottom: -100,
@@ -202,13 +202,17 @@ class HomeView extends StatelessWidget {
                                                 model.setBusy(true);
 
                                                 if (kIsWeb) {
-                                                  var myWorker = Worker('worker.js');
+
+                                                  /// DOES NOT WORK IN RELEASE MODE
+                                                  /*var myWorker = Worker('worker.js');
 
                                                   myWorker.onMessage.listen((e) {
+                                                    //List<Uint8List>
                                                     List<dynamic> computedPieces = e.data;
 
-                                                    List<Uint8List> pieces =
-                                                        computedPieces.map((e) => Uint8List.fromList(e.cast<int>().toList())).toList();
+                                                    debugPrint('type : ' + computedPieces.runtimeType.toString());
+
+                                                    List<Uint8List> pieces = computedPieces.map((e) => Uint8List.fromList(List<int>.from(e))).toList();
                                                     puzzleService.images = pieces;
                                                     model.startPuzzle();
                                                     model.setBusy(false);
@@ -218,7 +222,18 @@ class HomeView extends StatelessWidget {
                                                     puzzleService.imageBytes,
                                                     puzzleService.sideCount,
                                                     puzzleService.sideLength,
+                                                  ]);*/
+
+                                                  List<Uint8List> pieces = getPieces([
+                                                    puzzleService.imageBytes,
+                                                    puzzleService.sideCount,
+                                                    puzzleService.sideLength,
                                                   ]);
+                                                  debugPrint('Done');
+
+                                                  puzzleService.images = pieces;
+                                                  model.startPuzzle();
+                                                  model.setBusy(false);
                                                 } else {
                                                   List<Uint8List>? pieces = await compute(getPieces, {
                                                     'imageData': puzzleService.imageBytes,
@@ -287,10 +302,10 @@ double roundToVal(double input, double rounder) {
   return (input / rounder).round() * rounder;
 }
 
-List<Uint8List>? getPieces(dynamic dataMap) {
-  dynamic imageData = dataMap['imageData'];
-  int sideCount = dataMap['sideCount'];
-  double sideLength = dataMap['sideLength'];
+List<Uint8List> getPieces(dynamic dataMap) {
+  dynamic imageData = dataMap[0];
+  int sideCount = puzzleService.sideCount;
+  double sideLength = puzzleService.sideLength;
 
   image.Image? fullImage = image.decodeImage(imageData);
 
@@ -339,4 +354,6 @@ List<Uint8List>? getPieces(dynamic dataMap) {
 
     return computedPieces;
   }
+
+  return [];
 }
